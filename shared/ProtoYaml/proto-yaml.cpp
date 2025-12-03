@@ -59,18 +59,18 @@ struct FieldCache {
     message_name = desc->name();
     const proto::FieldDescriptor *fd;
     for (int i = 0; i < desc->field_count() && (fd = desc->field(i)); ++i) {
-      fields[ToLower(Spaceify(fd->name()))] = fd;
-      fields[ToLower(Hyphenate(fd->name()))] = fd;
-      fields[ToLower(fd->camelcase_name())] = fd;
+      fields[ToLower(Spaceify(std::string(fd->name())))] = fd;
+      fields[ToLower(Hyphenate(std::string(fd->name())))] = fd;
+      fields[ToLower(std::string(fd->camelcase_name()))] = fd;
     }
     for (int i = 0; i < desc->field_count() && (fd = desc->field(i)); ++i) {
-      fields[Spaceify(fd->name())] = fd;
-      fields[Hyphenate(fd->name())] = fd;
-      fields[fd->camelcase_name()] = fd;
-      fields[Capitalize(fd->camelcase_name())] = fd;
+      fields[Spaceify(std::string(fd->name()))] = fd;
+      fields[Hyphenate(std::string(fd->name()))] = fd;
+      fields[std::string(fd->camelcase_name())] = fd;
+      fields[Capitalize(std::string(fd->camelcase_name()))] = fd;
     }
     for (int i = 0; i < desc->field_count() && (fd = desc->field(i)); ++i) {
-      fields[fd->name()] = fd;
+      fields[std::string(fd->name())] = fd;
     }
   }
 };
@@ -97,23 +97,23 @@ struct ConstantCache {
     enum_name = desc->name();
     const proto::EnumValueDescriptor *vd;
     for (int i = 0; i < desc->value_count() && (vd = desc->value(i)); ++i) {
-      values[ToLower(Spaceify(vd->name()))] = vd;
-      values[ToLower(Hyphenate(vd->name()))] = vd;
+      values[ToLower(Spaceify(std::string(vd->name())))] = vd;
+      values[ToLower(Hyphenate(std::string(vd->name())))] = vd;
     }
     for (int i = 0; i < desc->value_count() && (vd = desc->value(i)); ++i) {
-      values[Spaceify(vd->name())] = vd;
-      values[Hyphenate(vd->name())] = vd;
-      values[ToPascalCase(vd->name())] = vd;
-      std::cout << " > " << ToPascalCase(vd->name()) << std::endl;
+      values[Spaceify(std::string(vd->name()))] = vd;
+      values[Hyphenate(std::string(vd->name()))] = vd;
+      values[ToPascalCase(std::string(vd->name()))] = vd;
+      std::cout << " > " << ToPascalCase(std::string(vd->name())) << std::endl;
     }
     for (int i = 0; i < desc->value_count() && (vd = desc->value(i)); ++i) {
-      values[ToLower(vd->name())] = vd;
+      values[ToLower(std::string(vd->name()))] = vd;
     }
     for (int i = 0; i < desc->value_count() && (vd = desc->value(i)); ++i) {
       values[std::to_string(vd->number())] = vd;
     }
     for (int i = 0; i < desc->value_count() && (vd = desc->value(i)); ++i) {
-      values[vd->name()] = vd;
+      values[std::string(vd->name())] = vd;
     }
   }
 };
@@ -267,9 +267,9 @@ MessageIsKeyValue(const proto::Descriptor *desc) {
   if (!desc || desc->field_count() < 1) return {};
   const proto::FieldDescriptor *kfd = desc->field(0);
   if (kfd->is_repeated()) return {};
-  if (ToLower(kfd->name()) != "id"  &&
-      ToLower(kfd->name()) != "key" &&
-      ToLower(kfd->name()) != "name") {
+  if (ToLower(std::string(kfd->name())) != "id"  &&
+      ToLower(std::string(kfd->name())) != "key" &&
+      ToLower(std::string(kfd->name())) != "name") {
     return {};
   }
   const proto::FieldDescriptor *vfd =
