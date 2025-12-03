@@ -8,6 +8,8 @@ include ../../Config.mk
 
 ENIGMA_ROOT := ../../
 
+OUTPUTNAME := enigma
+
 MAKE_TARGETS :=
 ifeq ($(TARGET-PLATFORM), Android)
 	CXXFLAGS += -fPIC
