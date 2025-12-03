@@ -205,3 +205,6 @@ $(OBJDIRS):
 ifneq ($(MAKECMDGOALS),clean)
 -include $(DEPENDS)
 endif
+
+print-outputname:
+	@echo "OUTPUTNAME is: $(OUTPUTNAME)"
