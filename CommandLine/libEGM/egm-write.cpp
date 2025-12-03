@@ -83,7 +83,7 @@ bool WriteYaml(const fs::path &egm_root, const fs::path &dir,
     const proto::FieldOptions opts = field->options();
     const bool isFilePath = opts.GetExtension(buffers::file_path);
 
-    yaml << YAML::Key << field->name();
+    yaml << YAML::Key << std::string(field->name());
     if (field->is_repeated()) {
       if (field->cpp_type() == CppType::CPPTYPE_MESSAGE) {
         yaml << YAML::BeginSeq;
