@@ -66,7 +66,7 @@ SHARED_SRC_DIR := ../../shared/
 CXX := g++
 CC := gcc
 DEPENDENCIES :=
-override CXXFLAGS += -std=c++17
+override CXXFLAGS += -std=c++17 -I$(SHARED_SRC_DIR)
  
 ifeq ($(GMODE), Debug)
 	override CXXFLAGS += -Wall -g -DDEBUG_MODE
