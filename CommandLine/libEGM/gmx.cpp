@@ -262,7 +262,7 @@ void PackRes(const LookupMap& resMap, std::string &dir, std::unordered_map<std::
     const google::protobuf::FieldOptions opts = field->options();
 
     if (field->name() == "id") {
-      int id = opts.GetExtension(buffers::id_start) + ids[m->GetTypeName()]++;
+      int id = opts.GetExtension(buffers::id_start) + ids[std::string(m->GetTypeName())]++;
       outStream << "Setting " << field->name() << " (" << field->type_name() << ") as " << id << std::endl;
       refl->SetInt32(m, field, id);
     } else {
@@ -470,11 +470,11 @@ void PackBuffer(const LookupMap& resMap, std::string type, std::string res, std:
 
   if (type == "script") {
     buffers::resources::Script script;
-    PackScript(fName, ids[script.GetTypeName()]++, &script);
+    PackScript(fName, ids[std::string(script.GetTypeName())]++, &script);
     m->CopyFrom(*static_cast<google::protobuf::Message *>(&script));
   } else if (type == "shader") {
     buffers::resources::Shader shader;
-    PackShader(fName, ids[shader.GetTypeName()]++, &shader);
+    PackShader(fName, ids[std::string(shader.GetTypeName())]++, &shader);
     m->CopyFrom(*static_cast<google::protobuf::Message *>(&shader));
   } else {
     std::string fileExt = type;
