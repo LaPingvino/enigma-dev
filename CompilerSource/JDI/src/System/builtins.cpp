@@ -168,6 +168,13 @@ namespace jdi {
     builtin_type__va_list = add_declarator("__float128",  UF_PRIMITIVE, 8).def; // GCC extension
     builtin_type__va_list = add_declarator("__builtin_va_list",   UF_PRIMITIVE, 8).def;
     
+    // GCC 7+ extended floating-point types (ISO/IEC TS 18661-3)
+    add_declarator("_Float32",   UF_PRIMITIVE, 4);
+    add_declarator("_Float64",   UF_PRIMITIVE, 8);
+    add_declarator("_Float128",  UF_PRIMITIVE, 16);
+    add_declarator("_Float32x",  UF_PRIMITIVE, 8);
+    add_declarator("_Float64x",  UF_PRIMITIVE, 16);
+    
     builtin_flag__virtual = add_declarator("virtual", UF_FLAG).flag;
     builtin_flag__explicit = add_declarator("explicit", UF_FLAG).flag;
     
