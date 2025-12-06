@@ -212,6 +212,11 @@ const char* establish_bearings(const char *compiler)
     jdi::builtin->add_macro("__glibcxx_concat3_", "");
     jdi::builtin->add_macro("__glibcxx_float_n", "");
     
+    // Disable C++11/14/17 features that JDI doesn't fully support
+    jdi::builtin->add_macro("_GLIBCXX_NOEXCEPT", "");
+    jdi::builtin->add_macro("constexpr", "inline");
+    jdi::builtin->add_macro("noexcept", "");
+    
     if (res)
       return "Highly unlikely error: Compiler builtins failed to parse. But stupid things can happen when working with files.";
 
