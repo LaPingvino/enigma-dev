@@ -205,6 +205,13 @@ const char* establish_bearings(const char *compiler)
 
     int res = jdi::builtin->parse_C_stream(macro_reader, (codegen_directory/"enigma_defines.txt").u8string().c_str());
     jdi::builtin->add_macro("_GLIBCXX_USE_CXX11_ABI", "0");
+    
+    // Workaround for complex glibc/libstdc++ macros that JDI can't parse
+    jdi::builtin->add_macro("__DECL_SIMD___MATH_PRECNAME", "");
+    jdi::builtin->add_macro("__MATHCALL_NARROW_NORMAL", "");
+    jdi::builtin->add_macro("__glibcxx_concat3_", "");
+    jdi::builtin->add_macro("__glibcxx_float_n", "");
+    
     if (res)
       return "Highly unlikely error: Compiler builtins failed to parse. But stupid things can happen when working with files.";
 
